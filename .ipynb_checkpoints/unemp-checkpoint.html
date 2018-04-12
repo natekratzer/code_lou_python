@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<head>
+  <title>Vega-Lite Chart</title>
+  <meta charset="utf-8">
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.5/vega.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/1.2.1/vega-lite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/2.2.0/vega-embed.min.js" charset="utf-8"></script>
+
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Container for the visualization -->
+  <div id="vis"></div>
+
+  <script>
+  var vlSpec = {
+    "encoding": {
+        "color": {
+            "field": "City",
+            "type": "nominal"
+        },
+        "x": {
+            "field": "year",
+            "type": "temporal"
+        },
+        "y": {
+            "field": "Unemployment",
+            "type": "quantitative"
+        }
+    },
+    "mark": "line",
+    "data": {
+        "values": [
+            {
+                "year": "2005-01-01",
+                "City": "Louisville",
+                "Unemployment": 5.9
+            },
+            {
+                "year": "2006-01-01",
+                "City": "Louisville",
+                "Unemployment": 5.7
+            },
+            {
+                "year": "2007-01-01",
+                "City": "Louisville",
+                "Unemployment": 5.3
+            },
+            {
+                "year": "2008-01-01",
+                "City": "Louisville",
+                "Unemployment": 6.3
+            },
+            {
+                "year": "2009-01-01",
+                "City": "Louisville",
+                "Unemployment": 10.1
+            },
+            {
+                "year": "2010-01-01",
+                "City": "Louisville",
+                "Unemployment": 10.0
+            },
+            {
+                "year": "2011-01-01",
+                "City": "Louisville",
+                "Unemployment": 9.5
+            },
+            {
+                "year": "2012-01-01",
+                "City": "Louisville",
+                "Unemployment": 7.9
+            },
+            {
+                "year": "2013-01-01",
+                "City": "Louisville",
+                "Unemployment": 7.6
+            },
+            {
+                "year": "2014-01-01",
+                "City": "Louisville",
+                "Unemployment": 6.1
+            },
+            {
+                "year": "2015-01-01",
+                "City": "Louisville",
+                "Unemployment": 4.9
+            },
+            {
+                "year": "2005-01-01",
+                "City": "Peers",
+                "Unemployment": 5.183355134434013
+            },
+            {
+                "year": "2006-01-01",
+                "City": "Peers",
+                "Unemployment": 4.729171611853161
+            },
+            {
+                "year": "2007-01-01",
+                "City": "Peers",
+                "Unemployment": 4.590456037215881
+            },
+            {
+                "year": "2008-01-01",
+                "City": "Peers",
+                "Unemployment": 5.5233636376636
+            },
+            {
+                "year": "2009-01-01",
+                "City": "Peers",
+                "Unemployment": 9.032106582122244
+            },
+            {
+                "year": "2010-01-01",
+                "City": "Peers",
+                "Unemployment": 9.070598553948024
+            },
+            {
+                "year": "2011-01-01",
+                "City": "Peers",
+                "Unemployment": 8.200242825957027
+            },
+            {
+                "year": "2012-01-01",
+                "City": "Peers",
+                "Unemployment": 7.067661685411151
+            },
+            {
+                "year": "2013-01-01",
+                "City": "Peers",
+                "Unemployment": 6.670671851560013
+            },
+            {
+                "year": "2014-01-01",
+                "City": "Peers",
+                "Unemployment": 5.589567212033699
+            },
+            {
+                "year": "2015-01-01",
+                "City": "Peers",
+                "Unemployment": 4.820941207932695
+            }
+        ]
+    },
+    "$schema": "https://vega.github.io/schema/vega-lite/v1.2.1.json"
+}
+
+  var embedSpec = {
+    mode: "vega-lite",  // Instruct Vega-Embed to use the Vega-Lite compiler
+    spec: vlSpec
+  };
+
+  // Embed the visualization in the container with id `vis`
+  vg.embed("#vis", embedSpec, function(error, result) {
+    // Callback receiving the View instance and parsed Vega spec
+    // result.view is the View, which resides under the '#vis' element
+  });
+  </script>
+</body>
+</html>
