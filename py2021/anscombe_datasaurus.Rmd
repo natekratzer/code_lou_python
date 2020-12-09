@@ -1,0 +1,60 @@
+---
+title: "Anscombe's Datasaurus"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(reticulate)
+
+Sys.setenv(RETICULATE_PYTHON = "/Users/bi6fgjk/opt/anaconda3/envs/r-reticulate/bin/python")
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_engines$set(python = reticulate::eng_python)
+```
+
+# Anscombe's Quartet
+
+Anscombe's Quartet is a famous dataset consisting of four different pairs of x and y values. The question we want to explore is how x is related to y (causes y?) and if that relationship is different in the four different x,y pairs.
+
+```{python import}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import statsmodels.formula.api as smf
+```
+
+```{python read}
+df = pd.read_csv("anscombe.csv")
+```
+
+```{python describe}
+df.groupby('set').describe()
+```
+
+```{python correlations}
+df.groupby('set').corr()
+```
+
+```{python regressions}
+reg1 = smf.ols('y ~ x', data=df[df.set == 1]).fit()
+reg2 = smf.ols('y ~ x', data=df[df.set == 2]).fit()
+reg3 = smf.ols('y ~ x', data=df[df.set == 3]).fit()
+reg4 = smf.ols('y ~ x', data=df[df.set == 4]).fit()
+
+reg1.summary()
+```
+
+All of the regression output is extremely similar. Coefficient of X is 0.5 and is statistically significant in all four cases. R-squared of 0.66 in all four cases. Do we think x causes y? Let's go ahead and plot all the data as well as the regression lines.
+
+Now I can use lmplot from seaborn. I tell it the x and y values, the data set to pull from, not to draw confidence intervals, to use the 'set' variable to divide up the data into four different plots (col = 'set') and to make those plots different colors (hue = 'set'). Finally, I tell it to give me two rows of plots rather than all four plots in one row (col_wrap = 2).
+
+```{python}
+sns.lmplot(x='x', y = 'y', data = df, ci = None, col = 'set', hue = 'set', col_wrap =2)
+
+plt.show()
+```
+
+## The Datasaurus Dozen
